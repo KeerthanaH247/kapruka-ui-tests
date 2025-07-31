@@ -1,5 +1,7 @@
 package stepDefinition;
 
+import java.security.PublicKey;
+
 import org.openqa.selenium.WebDriver;
 
 import com.base.TestBase;
@@ -16,6 +18,8 @@ public class Hooks {
 	@Before
 	public void setup()
 	{
+		if(Driverfactory.getDriver() == null)
+		{
 		TestBase base =new TestBase();
 		base.loadConfig();
 		String browser= base.getProperty("browser");
@@ -24,14 +28,14 @@ public class Hooks {
 		Driverfactory df=new Driverfactory();
 		df.init_browser(browser);
 		Driverfactory.getDriver().get(url);
+		
+		Runtime.getRuntime().addShutdownHook(new Thread(){
+			public void run()
+			{
+				Driverfactory.quitDriver();
+			}
+		});
+	}
 	}
 	
-	@After
-	public void tearDown()
-	{
-		if(driver!=null)
-		{
-			driver.quit();
-		}
 	}
-}

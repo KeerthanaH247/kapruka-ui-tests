@@ -18,8 +18,17 @@ public class HomePage {
 	@FindBy(xpath = "//div[@class='myaccountblock']")
 	WebElement profileIcon;
 	
+	public void homepage_validation() {
+		System.out.println("Title of the page: "+driver.getTitle());
+	}
+	
 	public void profileIconClick()
 	{
 		profileIcon.click();
+	}
+	
+	public LoginPage loginpage_validation() {
+		System.out.println("Title of the page: "+driver.getTitle());
+		return new LoginPage(driver);
 	}
 }

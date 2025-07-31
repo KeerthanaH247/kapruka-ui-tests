@@ -9,11 +9,16 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Driverfactory {
 
-	public static ThreadLocal<WebDriver> tlDriver=new ThreadLocal<>();
 	public static WebDriver driver;	
-	public void init_browser(String browser)
+	
+	public static WebDriver getDriver() {
+		return driver;
+	}
+	
+	public static WebDriver init_browser(String browser)
 	{
-		System.out.println("Browser="+browser);
+//		System.out.println("Browser="+browser);
+	if(driver == null) {
 		if(browser.equalsIgnoreCase("chrome"))
 		{
 			WebDriverManager.chromedriver().setup();
@@ -32,9 +37,18 @@ public class Driverfactory {
 		else {
 			System.out.println("Enter a valid browser name");
 		}
-	}
-	public static WebDriver getDriver() {
+		driver.manage().window().maximize();
 		return driver;
-		
+	}
+	return driver;
+	}
+	
+
+	public static void quitDriver() {
+		if(driver != null)
+		{
+			driver.quit();
+			driver=null;
+		}
 	}
 }
