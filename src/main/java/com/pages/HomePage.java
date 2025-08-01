@@ -1,8 +1,7 @@
 package com.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class HomePage {
@@ -15,8 +14,8 @@ public class HomePage {
 		PageFactory.initElements(driver, this);
 	}
 	 
-	@FindBy(xpath = "//div[@class='myaccountblock']")
-	WebElement profileIcon;
+	By profileIcon=By.xpath("//div[@class='myaccountblock']");
+	
 	
 	public void homepage_validation() {
 		System.out.println("Title of the page: "+driver.getTitle());
@@ -24,7 +23,7 @@ public class HomePage {
 	
 	public void profileIconClick()
 	{
-		profileIcon.click();
+		driver.findElement(profileIcon).click();
 	}
 	
 	public LoginPage loginpage_validation() {

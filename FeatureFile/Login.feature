@@ -17,10 +17,14 @@ Then Clicks on Create account buuton
  | First name | Last name | Email address | Password | confirm Passowrd |
  | 					  |						|								|					 |									|
  | User1		  | demo1		  | user1demo1@example.com 	| Welcome@1 | Welcome |
- | User2 | demo2 | user2demo2@example.com | Welcome@1 | Welcome@1 |
+ | User2 | demo2 | user02demo02@example.com | Welcome@1 | Welcome@1 |
 
 Scenario Outline: Login Account
 
 Given User is on Login page
 When User enters "<Email address>", "<Password>" 
 Then User will be redirected to homepage 
+
+Examples:
+| Email address | Password |
+| user1@example.com | Welcome@123 |

@@ -54,9 +54,9 @@ public void user_enters_and(String firstname, String lastname, String email, Str
  }
  else if(!password.equals(confirmPassowrd))
  {
- loginPage.create_account_with_matched_password(firstname, lastname, email, password, confirmPassowrd);
+ loginPage.create_account_with_mismatched_password(firstname, lastname, email, password, confirmPassowrd);
  }
- else 
+ else if(password.equals(confirmPassowrd))
  {
  loginPage.create_account_with_matched_password(firstname, lastname, email, password, confirmPassowrd);
 }

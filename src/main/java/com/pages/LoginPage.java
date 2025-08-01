@@ -1,11 +1,9 @@
 package com.pages;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import Utils.AlertUtils;
@@ -14,79 +12,91 @@ public class LoginPage {
 
 	WebDriver driver;
 	String alertUtilsText;
-	
+	HomePage homePage;
+	AlertUtils alertUtils;
 	public LoginPage(WebDriver driver)
 	{
 		this.driver=driver;
 		PageFactory.initElements(driver, this);
+		homePage=new HomePage(driver);
+		alertUtils=new AlertUtils(driver);
 	}
 	
-	AlertUtils alertUtils=new AlertUtils(driver);
 	
-	@FindBy(xpath = "//button[normalize-space()='Create Account']")
-	WebElement createAccount;
 	
-	@FindBy(name = "firstName")
-	WebElement firstname;
+	private By createAccount= By.xpath("//button[normalize-space()='Create Account']");
 	
-	@FindBy(name = "lastName")
-	WebElement lastname;
+	private By firstname=By.name ("firstName");
 	
-	@FindBy(name = "email")
-	WebElement email;
+	private By lastname=By.name( "lastName");
 	
-	@FindBy(name = "password")
-	WebElement password;
+	private By email=By.name("email");
 	
-	@FindBy(name = "passwordReConfirm")
-	WebElement confirmPassword;
+	private By password=By.name( "password");
 	
-	@FindBy(id = "exampleInputEmail1")
-	WebElement loginEmail;
+	private By confirmPassword=By.name("passwordReConfirm");
 	
-	@FindBy(xpath = "exampleInputPassword1")
-	WebElement loginPassword;
+	private By loginEmail=By.id("exampleInputEmail1");
 	
-	@FindBy(name = "Login")
-	WebElement loginButton;
+	private By loginPassword=By.id("exampleInputPassword1");
+	
+	private By loginButton=By.name("Login");
+	
+	private By deleteAccount=By.xpath("//div/div[normalize-space()='Delete Account']");
+	
+	private By deleteEmail=By.id("email");
+	private By deletePassword=By.id("password");
+	private By deleteMyAccount=By.xpath("//input[@name='Submit']");
 	
 	public void create_account()
 	{
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		createAccount.click();
+		driver.findElement(createAccount).click();
 		System.out.println("Title of Create Account page "+driver.getTitle());
 	}
 	
 	public void create_account_with_no_credentials() {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		createAccount.click();
+		driver.findElement(createAccount).click();
 		alertUtilsText=alertUtils.handleAlert();
 		}
 	
 	public void create_account_with_mismatched_password(String fname, String lname, String emailid, String pswd, String confirmPswd) {
-		firstname.sendKeys(fname);
-		lastname.sendKeys(lname);
-		email.sendKeys(emailid);
-		password.sendKeys(pswd);
-		confirmPassword.sendKeys(confirmPswd);
-		createAccount.click();
-		alertUtilsText=alertUtils.handleAlert();
+		
+		homePage.profileIconClick();
+		create_account();
+		driver.findElement(firstname).sendKeys(fname);
+		driver.findElement(lastname).sendKeys(lname);
+		driver.findElement(email).sendKeys(emailid);
+		driver.findElement(password).sendKeys(pswd);
+		driver.findElement(confirmPassword).sendKeys(confirmPswd);
+		driver.findElement(createAccount).click();
+		alertUtils.handleAlert();
 	}
 	
 	public void create_account_with_matched_password(String fname, String lname, String emailid, String pswd, String confirmPswd) {
-		firstname.sendKeys(fname);
-		lastname.sendKeys(lname);
-		email.sendKeys(emailid);
-		password.sendKeys(pswd);
-		confirmPassword.sendKeys(confirmPswd);
-		createAccount.click();
-	}
+		homePage.profileIconClick();
+		create_account();
+		driver.findElement(firstname).sendKeys(fname);
+		driver.findElement(lastname).sendKeys(lname);
+		driver.findElement(email).sendKeys(emailid);
+		driver.findElement(password).sendKeys(pswd);
+		driver.findElement(confirmPassword).sendKeys(confirmPswd);
+		driver.findElement(createAccount).click();
+//		homePage.profileIconClick();
+//		driver.findElement(deleteAccount).click();
+//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+//		driver.findElement(deleteEmail).sendKeys(emailid);
+//		driver.findElement(deletePassword).sendKeys(pswd);
+//		driver.findElement(deleteMyAccount).click();
+		}
 	
 	
 	public void login_account(String mailid, String pswd) {
-		
-		loginEmail.sendKeys(mailid);
-		loginPassword.sendKeys(pswd);
-		loginButton.click();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		homePage.profileIconClick();
+		driver.findElement(loginEmail).sendKeys(mailid);
+		driver.findElement(loginPassword).sendKeys(pswd);
+		driver.findElement(loginButton).click();
 	}
 }
