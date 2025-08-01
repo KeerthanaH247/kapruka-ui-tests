@@ -22,9 +22,5 @@ Then Clicks on Create account buuton
 Scenario Outline: Login Account
 
 Given User is on Login page
-When User enters "<Login Email>" ,"<Login password>" 
+When User enters "<Email address>", "<Password>" 
 Then User will be redirected to homepage 
-
-Examples: 
-| Login Email | Login password |
-| user2demo2@example.com  | Welcome@1 |

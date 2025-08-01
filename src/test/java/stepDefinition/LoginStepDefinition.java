@@ -16,9 +16,15 @@ public class LoginStepDefinition {
 	WebDriver driver =Driverfactory.getDriver();
 	HomePage homePage=new HomePage(driver);
 	LoginPage loginPage=new LoginPage(driver);
+	private void initPages() {
+		driver=Driverfactory.getDriver();
+		homePage=new HomePage(driver);
+		loginPage=new LoginPage(driver);
+	}
 	
 @Given("User is on the Homepage")
 public void user_is_on_the_homepage() {
+	initPages();
 	homePage.homepage_validation();
   }
 @When("User clicks on Profile icon")
@@ -32,8 +38,9 @@ homePage.loginpage_validation();
 
 @Given("User is on Login page")
 public void user_is_on_login_page() {
-	loginPage=homePage.loginpage_validation();
-homePage.loginpage_validation();
+	initPages();
+	homePage.profileIconClick();
+	homePage.loginpage_validation();
 }
 @When("User clicks on Create Account button user will be navigated to Account creation Page")
 public void user_clicks_on_create_account_button_user_will_be_navigated_to_account_creation_page() {
@@ -58,6 +65,19 @@ public void user_enters_and(String firstname, String lastname, String email, Str
 public void clicks_on_create_account_buuton() {
 
 }
+
+
+@When("User enters {string}, {string}")
+public void user_enters(String email, String password) {
+	homePage.profileIconClick();
+ loginPage.login_account(email, password); 
+}
+@Then("User will be redirected to homepage")
+public void user_will_be_redirected_to_homepage() {
+System.out.println(driver.getTitle());  
+}
+
+
 
 
 }

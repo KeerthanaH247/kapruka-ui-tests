@@ -1,13 +1,10 @@
 package stepDefinition;
 
-import java.security.PublicKey;
-
 import org.openqa.selenium.WebDriver;
 
 import com.base.TestBase;
 import com.factory.Driverfactory;
 
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
 
 public class Hooks {

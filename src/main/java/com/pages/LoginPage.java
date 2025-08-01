@@ -80,14 +80,13 @@ public class LoginPage {
 		password.sendKeys(pswd);
 		confirmPassword.sendKeys(confirmPswd);
 		createAccount.click();
-		alertUtilsText=alertUtils.handleAlert();
 	}
 	
+	
 	public void login_account(String mailid, String pswd) {
+		
 		loginEmail.sendKeys(mailid);
 		loginPassword.sendKeys(pswd);
 		loginButton.click();
 	}
-	
-	
 }
